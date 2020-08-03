@@ -8,8 +8,9 @@ class RestaurantTests {
 
     @Test
     public void creation(){
-        Restaurant restaurant = new Restaurant("Bob zip");
+        Restaurant restaurant = new Restaurant("Bob zip", "Seoul");
         assertEquals("Bob zip",restaurant.getName());
+        assertEquals("Seoul",restaurant.getAddress());
     }
 
     @Test

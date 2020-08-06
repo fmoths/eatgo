@@ -8,7 +8,9 @@ import com.fmoths.eatgo.domain.RestaurantRepositoryImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.core.StringContains.containsString;
@@ -22,14 +24,7 @@ class RestaurantControllerTest {
     @Autowired
     private MockMvc mvc;
 
-    //TODO::스파이 빈 이란?
-    @SpyBean(RestaurantRepositoryImpl.class)
-    private RestaurantRepository restaurantRepository;
-
-    @SpyBean(MenuItemRepositoryImpl.class)
-    private MenuItemRepository menuItemRepository;
-
-    @SpyBean(RestaurantService.class)
+    @MockBean(RestaurantService.class)
     private RestaurantService restaurantService;
 
     @Test

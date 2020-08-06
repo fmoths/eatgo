@@ -1,5 +1,6 @@
 package com.fmoths.eatgo.interfaces;
 
+import com.fmoths.eatgo.application.RestaurantService;
 import com.fmoths.eatgo.domain.MenuItemRepository;
 import com.fmoths.eatgo.domain.MenuItemRepositoryImpl;
 import com.fmoths.eatgo.domain.RestaurantRepository;
@@ -27,6 +28,9 @@ class RestaurantControllerTest {
 
     @SpyBean(MenuItemRepositoryImpl.class)
     private MenuItemRepository menuItemRepository;
+
+    @SpyBean(RestaurantService.class)
+    private RestaurantService restaurantService;
 
     @Test
     public void list() throws Exception {

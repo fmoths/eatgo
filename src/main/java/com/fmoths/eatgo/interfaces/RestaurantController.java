@@ -1,5 +1,6 @@
 package com.fmoths.eatgo.interfaces;
 
+import com.fmoths.eatgo.application.RestaurantService;
 import com.fmoths.eatgo.domain.MenuItem;
 import com.fmoths.eatgo.domain.MenuItemRepository;
 import com.fmoths.eatgo.domain.Restaurant;
@@ -15,24 +16,16 @@ import java.util.List;
 public class RestaurantController {
 
     @Autowired
-    private RestaurantRepositoryImpl restaurantRepositoryImpl;
-
-    @Autowired
-    private MenuItemRepository menuItemRepository;
+    private RestaurantService restaurantService;
 
     @GetMapping("/restaurants")
     public List<Restaurant> list(){
-        return restaurantRepositoryImpl.findAll();
+        return restaurantService.getRestaurants();
     }
 
     @GetMapping("/restaurants/{id}")
     public Restaurant detail(@PathVariable Long id){
 
-        Restaurant restaurant = restaurantRepositoryImpl.findById(id);
-
-        List <MenuItem> menuItems = menuItemRepository.findAllByRestaurantId(id);
-        restaurant.setMenuItems(menuItems);
-
-        return restaurant;
+        return restaurantService.getRestaurant(id);
     }
 }

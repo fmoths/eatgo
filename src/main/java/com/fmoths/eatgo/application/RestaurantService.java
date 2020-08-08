@@ -23,6 +23,7 @@ public class RestaurantService {
     public Restaurant getRestaurant(Long id){
         Restaurant restaurant = restaurantRepositoryImpl.findById(id);
         List <MenuItem> menuItems = menuItemRepositoryImpl.findAllByRestaurantId(id);
+
         restaurant.setMenuItems(menuItems);
         return restaurant;
     }

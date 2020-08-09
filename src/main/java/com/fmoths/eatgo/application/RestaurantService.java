@@ -32,7 +32,7 @@ public class RestaurantService {
         return restaurantRepositoryImpl.findAll();
     }
 
-    public void addRestaurant(Restaurant restaurant) {
-
+    public Restaurant addRestaurant(Restaurant restaurant) {
+        return restaurantRepositoryImpl.save(restaurant);
     }
 }

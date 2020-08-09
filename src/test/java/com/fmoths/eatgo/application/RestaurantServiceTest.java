@@ -1,6 +1,7 @@
 package com.fmoths.eatgo.application;
 
 import com.fmoths.eatgo.domain.*;
+import org.assertj.core.internal.bytebuddy.matcher.ElementMatchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 class RestaurantServiceTest {
@@ -63,5 +65,15 @@ class RestaurantServiceTest {
         Restaurant restaurant = restaurants.get(0);
         assertEquals(1004L,restaurant.getId());
     }
+    @Test
+    public void addRestaurant(){
+        Restaurant restaurant = new Restaurant("ByRyong","Busan");
+        Restaurant saved = new Restaurant(1234L,"ByRyong","Busan");
 
+        given(restaurantRepositoryImpl.save(any())).willReturn(saved);
+
+        Restaurant created = restaurantService.addRestaurant(restaurant);
+
+        assertEquals(created.getId(),1234L);
+    }
 }

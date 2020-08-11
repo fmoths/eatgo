@@ -9,6 +9,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -39,7 +40,7 @@ class RestaurantServiceTest {
         restaurants.add(restaurant);
 
         given(restaurantRepositoryImpl.findAll()).willReturn(restaurants);
-        given(restaurantRepositoryImpl.findById(1004L)).willReturn(restaurant);
+        given(restaurantRepositoryImpl.findById(1004L)).willReturn(Optional.of(restaurant));
     }
 
     public void mockMenuItemRepository(){

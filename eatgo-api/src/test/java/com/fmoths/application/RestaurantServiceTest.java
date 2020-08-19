@@ -1,7 +1,10 @@
-package com.fmoths.eatgo.application;
+package com.fmoths.application;
 
-import com.fmoths.eatgo.domain.*;
-import org.assertj.core.internal.bytebuddy.matcher.ElementMatchers;
+import com.fmoths.eatgo.application.RestaurantService;
+import com.fmoths.eatgo.domain.MenuItem;
+import com.fmoths.eatgo.domain.MenuItemRepository;
+import com.fmoths.eatgo.domain.Restaurant;
+import com.fmoths.eatgo.domain.RestaurantRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -11,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 

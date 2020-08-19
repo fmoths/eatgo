@@ -1,4 +1,4 @@
-package com.fmoths.eatgo.interfaces;
+package com.fmoths.interfaces;
 
 import com.fmoths.eatgo.application.RestaurantService;
 import com.fmoths.eatgo.domain.MenuItem;

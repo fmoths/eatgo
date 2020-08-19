@@ -1,4 +1,4 @@
-package com.fmoths.interfaces;
+package com.fmoths.eatgo.interfaces;
 
 import com.fmoths.eatgo.application.RestaurantService;
 import com.fmoths.eatgo.domain.MenuItem;
@@ -17,8 +17,7 @@ import static org.hamcrest.core.StringContains.containsString;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest
@@ -77,7 +76,6 @@ class RestaurantControllerTest {
                 );
     }
 
-
     @Test
     public void create() throws Exception {
         mvc.perform(post("/restaurants")
@@ -89,5 +87,13 @@ class RestaurantControllerTest {
 
         //TODO:: verify 란?
         verify(restaurantService).addRestaurant(any());
+    }
+
+    @Test
+    public void update() throws Exception {
+        mvc.perform(patch("/restaurants/1004")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content("{name:\"Jokerbar\",\"address\":\"Busan\"}"))
+        .andExpect(status().isOk());
     }
 }

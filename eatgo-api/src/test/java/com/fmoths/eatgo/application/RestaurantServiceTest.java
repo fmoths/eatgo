@@ -1,6 +1,5 @@
-package com.fmoths.application;
+package com.fmoths.eatgo.application;
 
-import com.fmoths.eatgo.application.RestaurantService;
 import com.fmoths.eatgo.domain.MenuItem;
 import com.fmoths.eatgo.domain.MenuItemRepository;
 import com.fmoths.eatgo.domain.Restaurant;

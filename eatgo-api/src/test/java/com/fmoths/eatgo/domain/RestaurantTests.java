@@ -1,6 +1,5 @@
-package com.fmoths.domain;
+package com.fmoths.eatgo.domain;
 
-import com.fmoths.eatgo.domain.Restaurant;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

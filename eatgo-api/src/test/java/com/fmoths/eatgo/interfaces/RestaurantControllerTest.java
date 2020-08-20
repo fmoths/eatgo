@@ -92,8 +92,10 @@ class RestaurantControllerTest {
     @Test
     public void update() throws Exception {
         mvc.perform(patch("/restaurants/1004")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content("{name:\"Jokerbar\",\"address\":\"Busan\"}"))
-        .andExpect(status().isOk());
+            .contentType(MediaType.APPLICATION_JSON)
+            .content("{\"name\":\"Jokerbar\",\"address\":\"Busan\"}"))
+            .andExpect(status().isOk());
+
+        verify(restaurantService).updateRestaurant(1004L,"Jokerbar","Busan");
     }
 }

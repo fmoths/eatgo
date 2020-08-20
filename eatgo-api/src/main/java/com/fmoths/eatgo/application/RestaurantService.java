@@ -4,6 +4,7 @@ import com.fmoths.eatgo.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -34,5 +35,16 @@ public class RestaurantService {
 
     public Restaurant addRestaurant(Restaurant restaurant) {
         return restaurantRepositoryImpl.save(restaurant);
+    }
+
+    @Transactional
+    public Restaurant updateRestaurant(Long id, String name, String address){
+        //TODO:: update Restaurant....
+
+        Restaurant restaurant = restaurantRepositoryImpl.findById(id).orElse(null);
+
+        restaurant.updateInformation(name, address);
+
+        return  restaurant;
     }
 }

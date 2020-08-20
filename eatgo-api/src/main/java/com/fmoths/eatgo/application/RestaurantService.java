@@ -43,7 +43,8 @@ public class RestaurantService {
 
         Restaurant restaurant = restaurantRepositoryImpl.findById(id).orElse(null);
 
-        restaurant.updateInformation(name, address);
+        if(restaurant != null)
+            restaurant.updateInformation(name, address);
 
         return  restaurant;
     }

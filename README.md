@@ -3,5 +3,6 @@
 
 ```
 - Springboot
-- Hibernate
-- IDE - intellij
+- Hibernate/JPA
+- IDE: intellij
+- node.js(front)

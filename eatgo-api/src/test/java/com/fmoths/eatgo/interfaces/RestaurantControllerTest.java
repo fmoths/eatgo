@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.core.StringContains.containsString;
@@ -32,7 +33,12 @@ class RestaurantControllerTest {
     @Test
     public void list() throws Exception {
         List<Restaurant> restaurants = new ArrayList<>();
-        restaurants.add(new Restaurant(1004L,"Bob zip", "Seoul"));
+        Restaurant restaurant = Restaurant.builder()
+                .id(1004L)
+                .name("Bob zip")
+                .address("Seoul")
+                .build();
+        restaurants.add(restaurant);
         given(restaurantService.getRestaurants()).willReturn(restaurants);
 
         mvc.perform(get("/restaurants"))
@@ -47,11 +53,20 @@ class RestaurantControllerTest {
 
     @Test
     public void detail() throws Exception {
-        Restaurant restaurant1 = new Restaurant(1004L,"Bob zip", "Seoul");
-        restaurant1.addMenuItem(new MenuItem("kimchi"));
+        Restaurant restaurant1 = Restaurant.builder()
+                .id(1004L)
+                .name("Bob zip")
+                .address("Seoul")
+                .build();
 
-        Restaurant restaurant2 = new Restaurant(2020L,"Cyber food", "Seoul");
-        restaurant2.addMenuItem(new MenuItem("kimchi"));
+        restaurant1.setMenuItems(Arrays.asList(MenuItem.builder().name("Kimchi").build()));
+
+        Restaurant restaurant2 = Restaurant.builder()
+                                    .id(2020L)
+                                    .name("Cyber food")
+                                    .address("Seoul")
+                                    .build();
+//        restaurant2.addMenuItem(new MenuItem("kimchi"));
 
         given(restaurantService.getRestaurant(1004L)).willReturn(restaurant1);
         given(restaurantService.getRestaurant(2020L)).willReturn(restaurant2);

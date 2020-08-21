@@ -38,7 +38,12 @@ class RestaurantServiceTest {
 
     public void mockRestauantRepository(){
         List<Restaurant> restaurants = new ArrayList<>();
-        Restaurant restaurant = new Restaurant(1004L,"Bob zip","Seoul");
+        Restaurant restaurant = Restaurant.builder()
+                                .id(1004L)
+                                .name("Bob zip")
+                                .address("Seoul")
+                                .build();
+
         restaurants.add(restaurant);
 
         given(restaurantRepositoryImpl.findAll()).willReturn(restaurants);
@@ -47,7 +52,7 @@ class RestaurantServiceTest {
 
     public void mockMenuItemRepository(){
         List <MenuItem> menuItems = new ArrayList<>();
-        MenuItem menuItem = new MenuItem("kimchi");
+        MenuItem menuItem = MenuItem.builder().name("kimchi").build();
         menuItems.add(menuItem);
         given(menuItemRepositoryImpl.findAllByRestaurantId(1004L)).willReturn(menuItems);
     }
@@ -70,10 +75,23 @@ class RestaurantServiceTest {
     }
     @Test
     public void addRestaurant(){
-        Restaurant restaurant = new Restaurant("ByRyong","Busan");
-        Restaurant saved = new Restaurant(1234L,"ByRyong","Busan");
 
-        given(restaurantRepositoryImpl.save(any())).willReturn(saved);
+//        Restaurant saved = Restaurant.builder()
+//                .id(1234L)
+//                .name("ByRyong")
+//                .address("Busan")
+//                .build();
+
+        given(restaurantRepositoryImpl.save(any())).will(invocation -> {
+            Restaurant restaurant = invocation.getArgument(0);
+            restaurant.setId(1234L);
+            return restaurant;
+        });
+
+        Restaurant restaurant = Restaurant.builder()
+                .name("kdpa")
+                .address("Busan")
+                .build();
 
         Restaurant created = restaurantService.addRestaurant(restaurant);
 
@@ -83,7 +101,12 @@ class RestaurantServiceTest {
     @Test
     public void updateRestaurant(){
 
-        Restaurant restaurant = new Restaurant(1004L,"Bob zip","Seoul");
+        Restaurant restaurant = Restaurant.builder()
+                .id(1004L)
+                .name("Bob zip")
+                .address("Seoul")
+                .build();
+
         given(restaurantRepositoryImpl.findById(1004L)).willReturn(Optional.of(restaurant));
 
 

@@ -59,14 +59,14 @@ class RestaurantControllerTest {
                 .address("Seoul")
                 .build();
 
-        restaurant1.setMenuItems(Arrays.asList(MenuItem.builder().name("Kimchi").build()));
+        MenuItem menuItem = MenuItem.builder().name("Kimchi").build();
+        restaurant1.setMenuItems(Arrays.asList(menuItem));
 
         Restaurant restaurant2 = Restaurant.builder()
                                     .id(2020L)
                                     .name("Cyber food")
                                     .address("Seoul")
                                     .build();
-//        restaurant2.addMenuItem(new MenuItem("kimchi"));
 
         given(restaurantService.getRestaurant(1004L)).willReturn(restaurant1);
         given(restaurantService.getRestaurant(2020L)).willReturn(restaurant2);
@@ -74,25 +74,36 @@ class RestaurantControllerTest {
         mvc.perform(get("/restaurants/1004"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(
-                        containsString("\"name\":\"Bob zip\""))
+                        containsString("\"id\":1004"))
                 )
                 .andExpect(content().string(
-                        containsString("\"id\":1004"))
-                ).andExpect(content()
-                .string(containsString("kimchi")));
+                    containsString("\"name\":\"Bob zip\""))
+                )
+                .andExpect(content().string(
+                        containsString("kimchi"))
+                );
 
         mvc.perform(get("/restaurants/2020"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(
-                        containsString("\"name\":\"Cyber food\""))
+                        containsString("\"id\":2020"))
                 )
                 .andExpect(content().string(
-                        containsString("\"id\":2020"))
+                        containsString("\"name\":\"Cyber food\""))
                 );
     }
 
     @Test
-    public void create() throws Exception {
+    public void createWithVaildData() throws Exception {
+        given(restaurantService.addRestaurant(any())).will(invocation -> {
+            Restaurant restaurant = invocation.getArgument(0);
+            return Restaurant.builder()
+                    .id(1234L)
+                    .name(restaurant.getName())
+                    .address(restaurant.getAddress())
+                    .build();
+        });
+
         mvc.perform(post("/restaurants")
             .contentType(MediaType.APPLICATION_JSON)
             .content("{\"name\":\"BeRyong\",\"address\":\"Busan\"}"))

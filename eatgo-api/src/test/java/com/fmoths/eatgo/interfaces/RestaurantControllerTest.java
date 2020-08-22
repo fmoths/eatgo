@@ -3,6 +3,7 @@ package com.fmoths.eatgo.interfaces;
 import com.fmoths.eatgo.application.RestaurantService;
 import com.fmoths.eatgo.domain.MenuItem;
 import com.fmoths.eatgo.domain.Restaurant;
+import com.fmoths.eatgo.domain.RestaurantNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -80,7 +81,7 @@ class RestaurantControllerTest {
                     containsString("\"name\":\"Bob zip\""))
                 )
                 .andExpect(content().string(
-                        containsString("kimchi"))
+                        containsString("Kimchi"))
                 );
 
         mvc.perform(get("/restaurants/2020"))
@@ -93,6 +94,14 @@ class RestaurantControllerTest {
                 );
     }
 
+    @Test
+    public void detailWithNotExisted() throws Exception {
+        given(restaurantService.getRestaurant(404L))
+                .willThrow(new RestaurantNotFoundException(404L));
+        mvc.perform(get("/restaurants/404"))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string("{}"));
+    }
     @Test
     public void createWithVaildData() throws Exception {
         given(restaurantService.addRestaurant(any())).will(invocation -> {

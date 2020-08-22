@@ -22,7 +22,7 @@ public class RestaurantService {
     }
 
     public Restaurant getRestaurant(Long id){
-        Restaurant restaurant = restaurantRepositoryImpl.findById(id).orElse(null);
+        Restaurant restaurant = restaurantRepositoryImpl.findById(id).orElseThrow(() -> new RestaurantNotFoundException(id));
         List <MenuItem> menuItems = menuItemRepositoryImpl.findAllByRestaurantId(id);
 
         restaurant.setMenuItems(menuItems);

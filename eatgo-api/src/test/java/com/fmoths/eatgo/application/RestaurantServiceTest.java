@@ -1,9 +1,6 @@
 package com.fmoths.eatgo.application;
 
-import com.fmoths.eatgo.domain.MenuItem;
-import com.fmoths.eatgo.domain.MenuItemRepository;
-import com.fmoths.eatgo.domain.Restaurant;
-import com.fmoths.eatgo.domain.RestaurantRepository;
+import com.fmoths.eatgo.domain.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -14,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
@@ -73,14 +71,16 @@ class RestaurantServiceTest {
         Restaurant restaurant = restaurants.get(0);
         assertEquals(1004L,restaurant.getId());
     }
+
+    @Test
+    public void getRestaurantWithNotExisted(){
+        assertThrows(RestaurantNotFoundException.class, () -> {
+            restaurantService.getRestaurant(404L);
+        });
+    }
+
     @Test
     public void addRestaurant(){
-
-//        Restaurant saved = Restaurant.builder()
-//                .id(1234L)
-//                .name("ByRyong")
-//                .address("Busan")
-//                .build();
 
         given(restaurantRepositoryImpl.save(any())).will(invocation -> {
             Restaurant restaurant = invocation.getArgument(0);

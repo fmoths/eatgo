@@ -35,9 +35,9 @@ public class RestaurantController {
         String address = resource.getAddress();
         Restaurant restaurant = Restaurant.builder().name(name).address(address).build();
 
-        restaurantService.addRestaurant(restaurant);
+        Restaurant restaurant1 = restaurantService.addRestaurant(restaurant);
 
-        URI location = new URI("/restaurants/" + restaurant.getId());
+        URI location = new URI("/restaurants/" + restaurant1.getId());
         return ResponseEntity.created(location).body("{}");
     }
 

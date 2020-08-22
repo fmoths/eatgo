@@ -20,7 +20,7 @@ class MenuItemControllerTests {
     @Autowired
     MockMvc mvc;
 
-    @MockBean
+    @MockBean(MenuItemService.class)
     private MenuItemService menuItemService;
 
     @Test

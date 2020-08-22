@@ -1,6 +1,8 @@
 package com.fmoths.eatgo.application;
 
 import com.fmoths.eatgo.domain.MenuItem;
+import com.fmoths.eatgo.domain.MenuItemRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,7 +10,18 @@ import java.util.List;
 @Service
 public class MenuItemService {
 
+    private final MenuItemRepository menuItemRepository;
+
+    @Autowired
+    public MenuItemService(MenuItemRepository menuItemRepository) {
+        this.menuItemRepository = menuItemRepository;
+    }
+
     public void bulkUpdate(Long restaurantId, List<MenuItem> menuItems) {
-        //TODO:: update;
+
+        for(MenuItem menuItem : menuItems) {
+            menuItem.setRestaurantId(restaurantId);
+            menuItemRepository.save(menuItem);
+        }
     }
 }

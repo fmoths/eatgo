@@ -102,6 +102,7 @@ class RestaurantControllerTest {
                 .andExpect(status().isNotFound())
                 .andExpect(content().string("{}"));
     }
+
     @Test
     public void createWithVaildData() throws Exception {
         given(restaurantService.addRestaurant(any())).will(invocation -> {
@@ -120,7 +121,6 @@ class RestaurantControllerTest {
             .andExpect(header().string("location","/restaurants/1234"))
             .andExpect(content().string("{}"));
 
-        //TODO:: verify 란?
         verify(restaurantService).addRestaurant(any());
     }
 

@@ -10,21 +10,27 @@ import java.util.List;
 @Service
 public class RestaurantService {
 
-    RestaurantRepository restaurantRepositoryImpl;
+    private final RestaurantRepository restaurantRepositoryImpl;
 
-    MenuItemRepository menuItemRepositoryImpl;
+    private final MenuItemRepository menuItemRepositoryImpl;
+
+    private final ReviewRepository reviewRepository;
 
     @Autowired
-    public RestaurantService(RestaurantRepository restaurantRepositoryImpl, MenuItemRepository menuItemRepositoryImpl) {
+    public RestaurantService(RestaurantRepository restaurantRepositoryImpl, MenuItemRepository menuItemRepositoryImpl, ReviewRepository reviewRepository) {
         this.restaurantRepositoryImpl = restaurantRepositoryImpl;
         this.menuItemRepositoryImpl = menuItemRepositoryImpl;
+        this.reviewRepository = reviewRepository;
     }
 
     public Restaurant getRestaurant(Long id){
         Restaurant restaurant = restaurantRepositoryImpl.findById(id).orElseThrow(() -> new RestaurantNotFoundException(id));
         List <MenuItem> menuItems = menuItemRepositoryImpl.findAllByRestaurantId(id);
+        List<Review> reviews = reviewRepository.findAllByRestaurantId(id);
 
         restaurant.setMenuItems(menuItems);
+        restaurant.setReviews(reviews);
+
         return restaurant;
     }
 

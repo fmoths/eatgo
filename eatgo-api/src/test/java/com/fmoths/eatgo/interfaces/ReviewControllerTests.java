@@ -28,7 +28,7 @@ class ReviewControllerTests {
 
     @Test
     public void createWithValidAttr() throws Exception {
-        given(reviewService.addReview(any())).willReturn(
+        given(reviewService.addReview(any(),any())).willReturn(
                 Review.builder()
                 .id(123L)
                 .build()
@@ -40,8 +40,7 @@ class ReviewControllerTests {
             .andExpect(status().isCreated())
             .andExpect(header().string("location", "/restaurants/1/reviews/123"));
 
-
-        verify(reviewService).addReview(any());
+        verify(reviewService).addReview(any(),any());
     }
 
     @Test
@@ -51,6 +50,6 @@ class ReviewControllerTests {
                 .content("{}"))
                 .andExpect(status().isBadRequest());
 
-        verify(reviewService, never()).addReview(any());
+        verify(reviewService, never()).addReview(any(),any());
     }
 }

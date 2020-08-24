@@ -32,7 +32,7 @@ class ReviewServiceTests {
                 .description("good")
                 .build();
 
-        reviewService.addReview(review);
+        reviewService.addReview(any(),review);
 
         verify(reviewRepository).save(any());
     }

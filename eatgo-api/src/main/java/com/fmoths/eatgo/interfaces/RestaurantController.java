@@ -46,6 +46,7 @@ public class RestaurantController {
                          @Valid @RequestBody Restaurant restaurant){
 
         String name = restaurant.getName();
+
         String address = restaurant.getAddress();
         restaurantService.updateRestaurant(id,name,address);
         return "{}";

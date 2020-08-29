@@ -2,4 +2,5 @@ rootProject.name = 'eatgo'
 include 'eatgo-api'
 include 'eatgo-web'
 include 'untitled'
+include 'eatgo-common'
 
